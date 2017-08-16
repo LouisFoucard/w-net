@@ -22,6 +22,8 @@ ground truth, but rather by checking that the learned function is self-consisten
 
 A test on te KITTY dataset is coming soon. There is still a lot of room for improvement, but the model is capable of infering depthmap at a rate of **20fps** from images of resolution 192x336 on a GTX 1070. More importantly, gathering more data for training is an easy process in this case since the model does not require depthmap ground truth. Eventually, this type of neural net for infering depth from stereo images could become a much cheaper and much higher resolution and range alternative to lidar systems.
 
+<img align="right" src="example_inference.png" >
+
 ### Architecture
 
 The architecture of w-net is heavily inspired by the u-net architecture, a residual learning architecture with with multiscale contracting paths used to perform nerve segmentation in the 
