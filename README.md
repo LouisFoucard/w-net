@@ -23,11 +23,11 @@ at a rate of **20fps** from images of resolution 192x336 on a GTX 1070.
 
 ### Architecture
 
-The architecture of w-net is heavily inspired by the residual u-net architecture used to perform nerve segmentation in the 
+The architecture of w-net is heavily inspired by the u-net architecture, a residual learning architecture with with multiscale contracting paths used to perform nerve segmentation in the 
 2016 Ultrasound Nerve Segmentation Kaggle competition. Its particularity is to bring back activation from the lower layers 
 to the higher level, so that, in the case of the nerve segmentation task, the network has a highly detailed reference against
 which to draw the masks deliminating the nerve cross sections. In the case of w-net, the disaprity needs to be calculated at 
-the same spatial resolution as the original image, which is why bringing back up the lower level activations helps.
+the same spatial resolution as the original image, which is intuitively why bringing back up the lower level activations would  help.
 
 ![alt tag](https://github.com/LouisFoucard/deepDepth/blob/master/w-net-architecture.png)
 
