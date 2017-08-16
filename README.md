@@ -1,6 +1,6 @@
 # W-net: Self-Supervised Learning of Depthmap from Stereo Images. 
 
-<img align="right" title="Optional title" src="https://github.com/LouisFoucard/deepDepth/blob/master/point_break_gif.gif" >
+<img align="right" src="https://github.com/LouisFoucard/deepDepth/blob/master/point_break_gif.gif" >
 
 W-net is a self-supervised convolutional neural network architecture to learn to predict depth maps from pairs of 
 stereo images. The network is trained directly on pairs of stereo images to jointly reconstruct the left view from
