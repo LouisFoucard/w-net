@@ -18,8 +18,9 @@ The gif shown on the right is an example of inference of depthmap from stereo im
 
 The processes of calculating the disparity map, reconstructing the two views and computing
 the spatial gradients are all encompassed into a single, end to end framework that can be trained without 
-ground truth, but rather by checking that the learned function is self-consistent. The model is capable of infering depthmap
-at a rate of **20fps** from images of resolution 192x336 on a GTX 1070.
+ground truth, but rather by checking that the learned function is self-consistent.
+
+A test on te KITTY dataset is coming soon. There is still a lot of room for improvement, but the model is capable of infering depthmap at a rate of **20fps** from images of resolution 192x336 on a GTX 1070. More importantly, gathering more data for training is an easy process in this case since the model does not require depthmap ground truth. Eventually, this type of neural net for infering depth from stereo images could become a much cheaper and much higher resolution and range alternative to lidar systems.
 
 ### Architecture
 
@@ -60,7 +61,4 @@ See the included notebook for a detailed explanation and implementation.
 
 The model is implemented in **Keras**/**Tensoflow**, and is trained on data from 22 3d movies, sampled at 1 fps. Validation is 
 perfomred on 3 held out movies. The total number of stereo frame is about 125K, training took 4 days on a gtx 1070 with 
-batches of 6 stereo images with resolution 192x672 per eye.
-
-
-
+batches of 6 stereo images with resolution 192x336 per eye. Batch normalization is used.
