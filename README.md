@@ -61,7 +61,4 @@ See the included notebook for a detailed explanation and implementation.
 
 The model is implemented in **Keras**/**Tensoflow**, and is trained on data from 22 3d movies, sampled at 1 fps. Validation is 
 perfomred on 3 held out movies. The total number of stereo frame is about 125K, training took 4 days on a gtx 1070 with 
-batches of 6 stereo images with resolution 192x336 per eye. For regularization we use batch normalization as well as drop out.
-
-
-
+batches of 6 stereo images with resolution 192x336 per eye. Batch normalization is used.
