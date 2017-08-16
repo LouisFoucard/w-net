@@ -14,7 +14,7 @@ the learned disparity maps. This auxiliary output loss however is weighted by th
 is only inforced in regions of image where there is no texture, and still allows the disparity map to have sharp transition
 at the edges of object for example. 
 
-The gif shown on the right is an example of inference of depthmap from stereo images from the movie point break 2.
+The gif shown on the right is an example of inference of depthmap from stereo images from the movie point break 2, one of the movies held out for validation.
 
 The processes of calculating the disparity map, reconstructing the two views and computing
 the spatial gradients are all encompassed into a single, end to end framework that can be trained without 
@@ -40,22 +40,19 @@ The third particulrity of w-net is the presence of both a probabilistic selectio
 to apply geometrical transformations from the left to right images, as well as a gradient layer which computes the spatial
 gradient of the calculated disparity map in order to enforce some level of smoothness with the help of an auxiliary loss function.
 
-The treaky part is to build a selection layer as described in [deep3d](https://arxiv.org/abs/1604.03650). 
-Our network predicts a probability distribution across possible disparity values d (with $d \in \left[-3,8 \right]$) at each pixel location $D^{d}_{i,j}$ , where $\sum_{d}P^{d}_{i,j} = 1$ for all $i, j$. To get the right image from the left image and the disparity map, and check that the disparity map is correct, we first define a shifted stack of the left view as $L^{d}_{i,j}= L_{i,j-d}$, then we use the disparity map $D^{d}_{i,j}$ to calculate the right image as:
+The selection layer is as described in [deep3d](https://arxiv.org/abs/1604.03650). 
+The network predicts a probability distribution across possible disparity values d at each pixel location. To get the right image from the left image and the disparity map, and check that the disparity map is correct, we first define a shifted stack of the left view, then we use the disparity map to calculate the right image as the sum of the disparity level and the shifted image pixel value.
 
-$$ R_{i,j} = \sum_{d} L^{d}_{i,j} D^{d}_{i,j} \;\;\;\;\;\;\;\;\;\;\;\;   (1)$$
+This operation differentiable with respect to the disparity. This means that we will be able to train the network using backpropagation to modify the disparity map infered from both the left and right image until it is correct, e.g. we can properly reconstruct the right image from the left image and the disparity map using the equation above.
 
-This is differentiable with respect to $D^{d}_{i,j}$. This means that we will be able to train the network using backpropagation to modify the disparity map infered from both the left and right image until it is correct, e.g. we can properly reconstruct the right image from the left image and the disparity map using the equation above.
+This selection layer will not contain any learnable weight, its output is completely deterministic given an image and a disparity map. Its only role is to contain information about the simple geometric rules that allow one to calculate right image from left and disparity. This infusion of expert knowledge is all the network needs to start being able to compute depth from pairs of images. 
 
-To that end, we must first create an this "geometry expert" layer using tensorflow/keras that will perform the simple operation in eq (1). This layer will not contain any learnable weight, its output is completely deterministic given an image and a disparity map. Its only role is to contain information about the simple geometric rules that allow one to calculate right image from left and disparity. This infusion of expert knowledge is all the network needs to start being able to compute depth from pairs of images. 
+In summary, the selection layer needs to do the following:
 
-This layer needs to do the following:
+* construct the shifted left image stack 
+* compute the right image by performing a dot product along the disparity values axis
 
-* construct the shifted left image stack $L^{d}_{i,j}= L_{i,j-d}$
-* compute the right image by performing a dot product along the disparity values axis $d$ as $ R_{i,j} = \sum_{d} L^{d}_{i,j} D^{d}_{i,j}$
-
-
-
+See the included notebook for a detailed explanation and implementation.
 
 ### Training
 
@@ -63,7 +60,5 @@ The model is implemented in **Keras**/**Tensoflow**, and is trained on data from
 perfomred on 3 held out movies. The total number of stereo frame is about 125K, training took 4 days on a gtx 1070 with 
 batches of 6 stereo images with resolution 192x672 per eye.
 
-### Results
 
-Below is an 
 
