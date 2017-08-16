@@ -4,7 +4,7 @@
 
 W-net is a self-supervised convolutional neural network architecture to learn to predict depth maps from pairs of 
 stereo images. The network is trained directly on pairs of stereo images to jointly reconstruct the left view from
-the right view and the left view from the right view, using learned disparity maps and the L1 norm as a reconstruction
+the right view and the rihgt view from the left view, using learned disparity maps and the L1 norm as a reconstruction
 error metric.  A probabilistic selection layer that applies simple geometric transformations is used to reconstruct 
 the left/right view from the right/left view and the corresponding disparity map. This probabilistic selection layer was 
 first introduced by Deep3d, an architecture to predic depth maps from monocular images and convert 2d movies to 3d
