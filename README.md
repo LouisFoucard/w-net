@@ -11,8 +11,8 @@ first introduced by Deep3d, an architecture to predic depth maps from monocular 
 (see https://arxiv.org/abs/1604.03650). 
 To handle the texture-less region where the reconstruction problem is ill-defined, we use an auxiliary output loss to minimize the spatial gradient of 
 the learned disparity maps. This auxiliary output loss however is weighted by the original image's gradient so that it
-is only inforced in regions of image where there is no texture, and still allows the disparity map to have sharp transition
-at the edges of object for example. 
+is only enforced in regions of image where there is no texture, and still allows the disparity map to have sharp transition
+at the edges of foreground object. 
 
 The gif shown on the right is an example of inference of depthmap from stereo images from the movie point break 2, one of the movies held out for validation.
 
