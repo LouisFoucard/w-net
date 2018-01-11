@@ -37,9 +37,7 @@ the same spatial resolution as the original image, which is intuitively why brin
 ![alt tag](w-net-architecture.png)
 
 The second particularity of w-net is the fact that its input consists in a pair of stereo images, which are
-concatenated along the channel axis, as shown in the schematic above. We use depth wise separable convolutions in order not
- to loose the cross channel features (https://arxiv.org/abs/1610.02357). This is espacially needed here as the two images are 
- concatenated along the channel axis and need to stay separable.
+concatenated along the channel axis, as shown in the schematic above. We use depth wise separable convolutions(https://arxiv.org/abs/1610.02357). 
  
 The third particulrity of w-net is the presence of both a probabilistic selection layer, which uses the calculated disparity
 to apply geometrical transformations from the left to right images, as well as a gradient layer which computes the spatial
